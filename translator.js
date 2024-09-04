@@ -60,6 +60,7 @@ for (let key in numberToBrille) {
 function AlpbahetToBrille(text) {
   let brilleForm = "";
   let numberMode = false;
+
   for (i in text) {
     char = text[i];
 
@@ -78,10 +79,43 @@ function AlpbahetToBrille(text) {
       brilleForm += alphabetToBrille[char];
     }
   }
+
   return brilleForm;
+}
+
+function BrilleToAlphabet(text) {
+  let char = "";
+  let i = 0;
+  let alphabetForm = "";
+  let numberMode = false;
+
+  for (i = 0; i < text.length; i += 6) {
+    char = text.substr(i, 6);
+    if (brilleToAlphabet[char] == " ") {
+      numberMode = false;
+      alphabetForm += brilleToAlphabet[char];
+    } else if (numberMode) {
+      alphabetForm += brilleToNumber[char];
+    } else if (brilleToAlphabet[char] == "number") {
+      numberMode = true;
+      i += 6;
+      char = text.substr(i, 6);
+      alphabetForm += brilleToNumber[char];
+    } else if (brilleToAlphabet[char] == "capital") {
+      i += 6;
+      char = text.substr(i, 6);
+      alphabetForm += brilleToAlphabet[char].toUpperCase();
+    } else {
+      alphabetForm += brilleToAlphabet[char];
+    }
+  }
+  return alphabetForm;
 }
 
 function Translator(text) {}
 
-console.log(AlpbahetToBrille("Abc 123"));
+console.log(AlpbahetToBrille("123 Abc"));
+console.log(
+  BrilleToAlphabet(".O.OOOO.....O.O...OO...............OO.....O.O...OO....")
+);
 console.log(".....OO.....O.O...OO...........O.OOOO.....O.O...OO....");
