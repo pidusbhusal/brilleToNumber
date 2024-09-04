@@ -27,7 +27,7 @@ const alphabetToBrille = {
   z: "O..OOO", // ⠵
   " ": "......", // ⠀ (space)
   capital: ".....O", // ⠠ (Capital indicator)
-  number: ".OOO..", // ⠼ (Number indicator)
+  number: ".O.OOO", // ⠼ (Number indicator)
 };
 
 const numberToBrille = {
@@ -59,11 +59,18 @@ for (let key in numberToBrille) {
 
 function AlpbahetToBrille(text) {
   let brilleForm = "";
-  const numberMode = false;
+  let numberMode = false;
   for (i in text) {
     char = text[i];
+
     if (char === " ") {
       brilleForm += alphabetToBrille[" "];
+      numberMode = false;
+    } else if (numberMode) {
+      brilleForm += numberToBrille[char];
+    } else if (!isNaN(char)) {
+      numberMode = true;
+      brilleForm += alphabetToBrille["number"] + numberToBrille[char];
     } else if (char == char.toUpperCase()) {
       brilleForm +=
         alphabetToBrille["capital"] + "" + alphabetToBrille[char.toLowerCase()];
@@ -76,8 +83,5 @@ function AlpbahetToBrille(text) {
 
 function Translator(text) {}
 
-console.log(AlpbahetToBrille("Hello world"));
-console.log(
-  ".....OO.OO..O..O..O.O.O.O.O.O.O..OO........OOO.OO..OO.O.OOO.O.O.O.OO.O.."
-);
-
+console.log(AlpbahetToBrille("Abc 123"));
+console.log(".....OO.....O.O...OO...........O.OOOO.....O.O...OO....");
