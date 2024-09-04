@@ -112,10 +112,20 @@ function BrilleToAlphabet(text) {
   return alphabetForm;
 }
 
-function Translator(text) {}
+function Translator(text) {
+  const textForBrille = /O./;
 
-console.log(AlpbahetToBrille("123 Abc"));
+  if (textForBrille.test(text)  && (text.length % 6 == 0) ) {
+    return BrilleToAlphabet(text) ;
+  }
+
+  return AlpbahetToBrille(text)
+}
+
+
+
 console.log(
-  BrilleToAlphabet(".O.OOOO.....O.O...OO...............OO.....O.O...OO....")
+  Translator(
+    ".....OO.....O.O...OO...........O.OOOO.....O.O...OO..........OO..OO.....OOO.OOOO..OOO"
+  )
 );
-console.log(".....OO.....O.O...OO...........O.OOOO.....O.O...OO....");
